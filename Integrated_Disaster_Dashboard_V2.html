@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Integrated Disaster Risk Dashboard - Team Alpha</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+            --bg: #f4f7f6;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background-color: var(--bg); margin: 0; padding: 20px; color: var(--primary); }
+        .header { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: center; }
+        .header h1 { margin: 0; color: var(--primary); font-size: 2.5em; }
+        .header p { color: #7f8c8d; margin-top: 10px; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card h2 { border-bottom: 2px solid var(--bg); padding-bottom: 10px; margin-top: 0; color: var(--accent); }
+        
+        .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .metric { background: var(--bg); padding: 15px; border-radius: 8px; text-align: center; }
+        .metric span { display: block; font-size: 0.9em; color: #7f8c8d; }
+        .metric strong { font-size: 1.4em; color: var(--primary); }
+
+        .chart-container { position: relative; height: 300px; width: 100%; }
+        .footer { text-align: center; margin-top: 40px; padding: 20px; color: #7f8c8d; font-size: 0.9em; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: var(--primary); color: white; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Disaster Risk & Financing Dashboard (v2.0)</h1>
+        <p>Amity University (AIIT) - Analysis of Most Affected Hotspots</p>
+    </div>
+
+    <div class="grid">
+        <!-- Cyclone Analysis Section -->
+        <div class="card">
+            <h2>Cyclone Hotspots (Top Districts)</h2>
+            <div class="chart-container">
+                <canvas id="cycloneCityChart"></canvas>
+            </div>
+            <table>
+                <tr><th>District</th><th>Avg Risk Score</th></tr>
+                <tr><td>Puri District</td><td>1.0</td></tr><tr><td>Saiha</td><td>1.0</td></tr><tr><td>Arong</td><td>0.8636363636363636</td></tr><tr><td>Nagapattinam</td><td>0.18181818181818182</td></tr><tr><td>Bhavnagar</td><td>0.0</td></tr>
+            </table>
+        </div>
+
+        <!-- Drought Analysis Section -->
+        <div class="card">
+            <h2>Drought Hotspots (Top Locations)</h2>
+            <div class="chart-container">
+                <canvas id="droughtCityChart"></canvas>
+            </div>
+            <table>
+                <tr><th>Location</th><th>Avg Severity</th></tr>
+                <tr><td>Bundelkhand</td><td>2.36</td></tr><tr><td>Marathwada</td><td>1.36</td></tr><tr><td>Other Region</td><td>1.36</td></tr><tr><td>Eastern Tamil Nadu</td><td>0.44</td></tr>
+            </table>
+        </div>
+
+        <!-- Tornado Analysis Section -->
+        <div class="card">
+            <h2>Tornado Hotspots (High Risk Counts)</h2>
+            <div class="chart-container">
+                <canvas id="tornadoCityChart"></canvas>
+            </div>
+            <table>
+                <tr><th>Location</th><th>High Risk Events</th></tr>
+                <tr><td>Barddhaman</td><td>65</td></tr><tr><td>Kolkata</td><td>64</td></tr><tr><td>South Salmara</td><td>46</td></tr><tr><td>Puri District</td><td>45</td></tr><tr><td>Medinipur</td><td>45</td></tr>
+            </table>
+        </div>
+
+        <!-- Fiscal Preparedness Summary -->
+        <div class="card">
+            <h2>Institutional Determinants</h2>
+            <div class="metric-grid">
+                <div class="metric"><span>Puri (Cyclone)</span><strong>Max Risk (1.0)</strong></div>
+                <div class="metric"><span>Bundelkhand (Drought)</span><strong>High Sev (2.36)</strong></div>
+                <div class="metric"><span>Barddhaman (Tornado)</span><strong>Max Events (65)</strong></div>
+                <div class="metric"><span>Strategic Focus</span><strong>Mitigation</strong></div>
+            </div>
+            <p>Districts listed above require the highest level of <strong>Fiscal Autonomy</strong> to manage recurring disaster impacts effectively.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 Team Alpha | Amity Institute of Information Technology | MCA Batch 2025-27
+    </div>
+
+    <script>
+        // Cyclone City Chart
+        new Chart(document.getElementById('cycloneCityChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Puri District', 'Saiha', 'Arong', 'Nagapattinam', 'Bhavnagar'],
+                datasets: [{
+                    label: 'Mean Risk Score',
+                    data: [1.0, 1.0, 0.86, 0.18, 0.0],
+                    backgroundColor: '#e67e22'
+                }]
+            },
+            options: { maintainAspectRatio: false }
+        });
+
+        // Drought City Chart
+        new Chart(document.getElementById('droughtCityChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Bundelkhand', 'Marathwada', 'Other Region', 'Eastern Tamil Nadu'],
+                datasets: [{
+                    label: 'Mean Severity',
+                    data: [2.36, 1.36, 1.36, 0.44],
+                    backgroundColor: '#f1c40f'
+                }]
+            },
+            options: { maintainAspectRatio: false }
+        });
+
+        // Tornado City Chart
+        new Chart(document.getElementById('tornadoCityChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Barddhaman', 'Kolkata', 'South Salmara', 'Puri District', 'Medinipur'],
+                datasets: [{
+                    label: 'High Risk Events',
+                    data: [65, 64, 46, 45, 45],
+                    backgroundColor: '#e74c3c'
+                }]
+            },
+            options: { maintainAspectRatio: false }
+        });
+    </script>
+</body>
+</html>

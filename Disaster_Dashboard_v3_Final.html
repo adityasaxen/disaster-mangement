@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disaster Risk & Preparedness Dashboard v3.0</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --accent: #3498db;
+            --danger: #e74c3c;
+            --success: #2ecc71;
+            --bg: #f4f7f6;
+        }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); padding: 20px; color: var(--primary); }
+        .header { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; text-align: center; }
+        .header h1 { margin: 0; font-size: 2.5em; }
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 20px; }
+        .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card h2 { border-bottom: 2px solid var(--bg); padding-bottom: 10px; margin-top: 0; color: var(--accent); }
+        
+        .img-container { width: 100%; margin-top: 15px; border-radius: 8px; overflow: hidden; border: 1px solid #ddd; }
+        .img-container img { width: 100%; height: auto; display: block; }
+        
+        .caption { font-size: 0.85em; color: #666; margin-top: 8px; font-style: italic; text-align: center; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 0.9em; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background: var(--primary); color: white; }
+        
+        .chart-container { position: relative; height: 300px; width: 100%; margin-top: 15px; }
+        .footer { text-align: center; margin-top: 40px; padding: 20px; color: #7f8c8d; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Integrated Disaster Analytics & Hotspot Dashboard</h1>
+        <p>Amity University (AIIT) - Disaster Risk Financing Case Study</p>
+    </div>
+
+    <div class="grid">
+        <!-- Section 1: Cyclone Analysis -->
+        <div class="card">
+            <h2>Cyclone Technical Analytics</h2>
+            <div class="img-container">
+                <img src="Code_Generated_Image (4).png" alt="Cyclone Correlation Heatmap">
+            </div>
+            <p class="caption">Analysis: High correlation between Sea Surface Temp and Risk Score (0.73).</p>
+            <table>
+                <tr><th>Top District</th><th>Mean Risk Score</th></tr>
+                <tr><td>Puri District</td><td>1.00</td></tr>
+                <tr><td>Saiha</td><td>1.00</td></tr>
+                <tr><td>Arong</td><td>0.86</td></tr>
+            </table>
+        </div>
+
+        <!-- Section 2: Drought Analysis -->
+        <div class="card">
+            <h2>Drought Feature Importance</h2>
+            <div class="img-container">
+                <img src="Code_Generated_Image (1).png" alt="Drought Feature Importance Chart">
+            </div>
+            <p class="caption">Analysis: Evapotranspiration and Soil Moisture are the primary predictors of severity.</p>
+            <table>
+                <tr><th>Location</th><th>Avg Severity</th></tr>
+                <tr><td>Bundelkhand</td><td>2.36</td></tr>
+                <tr><td>Marathwada</td><td>1.36</td></tr>
+                <tr><td>Eastern Tamil Nadu</td><td>0.44</td></tr>
+            </table>
+        </div>
+
+        <!-- Section 3: Tornado Geospatial Mapping -->
+        <div class="card">
+            <h2>Geospatial Tornado Hotspots</h2>
+            <div class="img-container">
+                <img src="Code_Generated_Image.png" alt="Tornado Hotspot Scatter Plot">
+            </div>
+            <p class="caption">Mapping: High-density event clusters identified in West Bengal and Assam corridors.</p>
+            <table>
+                <tr><th>Location</th><th>High Risk Events</th></tr>
+                <tr><td>Barddhaman</td><td>65</td></tr>
+                <tr><td>Kolkata</td><td>64</td></tr>
+                <tr><td>South Salmara</td><td>46</td></tr>
+            </table>
+        </div>
+
+        <!-- Section 4: Preparedness & Financing -->
+        <div class="card">
+            <h2>Institutional Preparedness Model</h2>
+            <div class="chart-container">
+                <canvas id="prepChart"></canvas>
+            </div>
+            <p class="caption">Prediction: Districts with Fiscal Autonomy scores > 80% show 4.5x faster recovery timelines.</p>
+            <div class="img-container" style="margin-top:20px;">
+                <img src="Code_Generated_Image (2).png" alt="Institutional Performance Analysis">
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        © 2026 Team Alpha | Amity Institute of Information Technology | MCA Batch 2025-27
+    </div>
+
+    <script>
+        const ctx = document.getElementById('prepChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Autonomous Funding Efficiency',
+                    data: [65, 72, 75, 88, 91, 95],
+                    borderColor: '#2ecc71',
+                    borderWidth: 3,
+                    fill: false,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, grid: { color: '#f0f0f0' } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
